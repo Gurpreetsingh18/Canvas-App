@@ -1,32 +1,72 @@
 var database;
 var drawing = [];
+var canvas;
+var currentPath = [];
+var isDrawing = false;
 
 function setup(){
-    createCanvas(1000,500);
+    canvas =  createCanvas(displayWidth,displayHeight);
+
+    canvas.mousePressed(startPath);
+    canvas.parent('canvascontainer');
+    canvas.mouseReleased(endPath);
+
+    var saveButton = select('#saveButton');
+    saveButton.mousePressed(saveDrawing); 
+}
+
+function startPath(){
+    isDrawing = true;
+    currentPath = [];
+    drawing.push(currentPath); 
+}
+
+function endPath(){
+    isDrawing = false;
 }
 
 function draw(){
     background(0);
     
     
- if(mouseIsPressed) {
+ if(isDrawing) {
      var point = {
         x:mouseX,
         y:mouseY
      }
-     drawing.push(point);
+     currentPath.push(point);
     } 
 
-    beginShape();
     stroke(255);
     strokeWeight(4);
     noFill();
     for(var i = 0;i<drawing.length;i++){
-        vertex(drawing[i].x,drawing[i].y);
-    }
-    endShape();
+        var path = drawing[i];
+        beginShape();
+        for(var j = 0;j<path.length;j++){
+          vertex(path[j].x,path[j].y);
+        }
+        endShape();
+    }   
+}
 
-  
+function saveDrawing(){
+    var ref = database.ref('drawing');
+    var data = {
+        name : "Gurpreet",
+        drawing:drawing
+    }
+    var result = ref.push(data,dataSent);
+    console.log(result.key);
+}
+
+function dataSent(status){
+    console.log(status);
+
+}
+
+function database(){
+    
 }
 
 
