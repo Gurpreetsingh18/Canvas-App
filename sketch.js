@@ -5,7 +5,7 @@ var currentPath = [];
 var isDrawing = false;
 
 function setup(){
-    canvas =  createCanvas(displayWidth,displayHeight);
+    canvas =  createCanvas(displayWidth-20,displayHeight-30);
 
     canvas.mousePressed(startPath);
     canvas.parent('canvascontainer');
@@ -13,6 +13,9 @@ function setup(){
 
     var saveButton = select('#saveButton');
     saveButton.mousePressed(saveDrawing); 
+
+    var clearButton = select('#clearButton');
+    clearButton.mousePressed(clearDrawing);
 }
 
 function startPath(){
@@ -65,9 +68,11 @@ function dataSent(status){
 
 }
 
-function database(){
-    
+function clearDrawing(){
+    drawing = [];
 }
+
+
 
 
 
