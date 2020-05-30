@@ -1,19 +1,32 @@
-var canvas;
 var database;
+var drawing = [];
 
 function setup(){
     createCanvas(1000,500);
 }
 
 function draw(){
-   database = firebase.database();
+    background(0);
+    stroke(3);
+    strokeWeight(4);
+    
+ if(mouseIsPressed) {
+     var point = {
+        x:mouseX,
+        y:mouseY
+     }
+     drawing.push(point);
+    } 
+
+    beginShape();
+    for(var i = 0;i<drawing.length;i++){
+        vertex(drawing[i].x,drawing[i].y);
+    }
+    endShape();
+
+  
 }
 
-function mouseDragged(){
-    if(mouseDragged){
-        canvas = new Canvas(450,500,300,500);
-        canvas.shapeColor = "black";
-    }
-}
+
 
 
