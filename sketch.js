@@ -7,8 +7,7 @@ function setup(){
 
 function draw(){
     background(0);
-    stroke(3);
-    strokeWeight(4);
+    
     
  if(mouseIsPressed) {
      var point = {
@@ -19,6 +18,9 @@ function draw(){
     } 
 
     beginShape();
+    stroke(255);
+    strokeWeight(4);
+    noFill();
     for(var i = 0;i<drawing.length;i++){
         vertex(drawing[i].x,drawing[i].y);
     }
